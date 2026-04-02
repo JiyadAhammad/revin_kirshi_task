@@ -1,5 +1,5 @@
 class ApiEndpoint {
   ApiEndpoint._();
 
-  static const String simulateResult = '/api/simulate';
+  static const String simulateResult = '/simulations';
 }

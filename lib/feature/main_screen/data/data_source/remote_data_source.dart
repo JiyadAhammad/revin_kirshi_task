@@ -11,6 +11,7 @@ abstract interface class ISimulateResultDataSource {
   Future<ApiResponse<SimulateResultResponse>> simulateTodayResult({
     required SimulationRequestModel request,
   });
+  Future<ApiResponse<SimulateResultResponse>> resetResult();
 }
 
 class SimulateResultDataSourceImpl extends BaseRemoteDataSourceImpl
@@ -18,13 +19,27 @@ class SimulateResultDataSourceImpl extends BaseRemoteDataSourceImpl
   SimulateResultDataSourceImpl(this.dio);
   final Dio dio;
   // { water: 'HIGH', sunlight: 'LOW' }
+
+  @override
+  Future<ApiResponse<SimulateResultResponse>> resetResult() {
+    return safeApiCall(() async {
+      final Response<dynamic> res = await dio.post(ApiEndpoint.simulateResult);
+
+      return ApiResponseMapper.fromJson(
+        res.data as Map<String, dynamic>,
+        (Object? data) =>
+            SimulateResultResponse.fromJson(data! as Map<String, dynamic>),
+      );
+    });
+  }
+
   @override
   Future<ApiResponse<SimulateResultResponse>> simulateTodayResult({
     required SimulationRequestModel request,
   }) {
     return safeApiCall(() async {
       final Response<dynamic> res = await dio.post(
-        ApiEndpoint.simulateResult,
+        '${ApiEndpoint.simulateResult}/${request.id}/step',
         data: request.toJson(),
       );
 

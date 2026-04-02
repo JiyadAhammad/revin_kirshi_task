@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class SimulateResultEntity {
   final String id;
   final int day;
@@ -16,6 +17,26 @@ class SimulateResultEntity {
     required this.sunlight,
     required this.statusMsg,
   });
+
+  SimulateResultEntity copyWith({
+    String? id,
+    int? day,
+    int? health,
+    int? growth,
+    String? water,
+    String? sunlight,
+    String? statusMsg,
+  }) {
+    return SimulateResultEntity(
+      id: id ?? this.id,
+      day: day ?? this.day,
+      health: health ?? this.health,
+      growth: growth ?? this.growth,
+      water: water ?? this.water,
+      sunlight: sunlight ?? this.sunlight,
+      statusMsg: statusMsg ?? this.statusMsg,
+    );
+  }
 }
 
 class SimulateResult {

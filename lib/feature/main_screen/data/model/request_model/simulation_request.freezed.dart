@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SimulationRequestModel {
 
- String get waterEnv; String get sunlightEnv;
+ String get id; String get water; String get sunlight;
 /// Create a copy of SimulationRequestModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SimulationRequestModelCopyWith<SimulationRequestModel> get copyWith => _$Simula
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SimulationRequestModel&&(identical(other.waterEnv, waterEnv) || other.waterEnv == waterEnv)&&(identical(other.sunlightEnv, sunlightEnv) || other.sunlightEnv == sunlightEnv));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SimulationRequestModel&&(identical(other.id, id) || other.id == id)&&(identical(other.water, water) || other.water == water)&&(identical(other.sunlight, sunlight) || other.sunlight == sunlight));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,waterEnv,sunlightEnv);
+int get hashCode => Object.hash(runtimeType,id,water,sunlight);
 
 @override
 String toString() {
-  return 'SimulationRequestModel(waterEnv: $waterEnv, sunlightEnv: $sunlightEnv)';
+  return 'SimulationRequestModel(id: $id, water: $water, sunlight: $sunlight)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SimulationRequestModelCopyWith<$Res>  {
   factory $SimulationRequestModelCopyWith(SimulationRequestModel value, $Res Function(SimulationRequestModel) _then) = _$SimulationRequestModelCopyWithImpl;
 @useResult
 $Res call({
- String waterEnv, String sunlightEnv
+ String id, String water, String sunlight
 });
 
 
@@ -65,10 +65,11 @@ class _$SimulationRequestModelCopyWithImpl<$Res>
 
 /// Create a copy of SimulationRequestModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? waterEnv = null,Object? sunlightEnv = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? water = null,Object? sunlight = null,}) {
   return _then(_self.copyWith(
-waterEnv: null == waterEnv ? _self.waterEnv : waterEnv // ignore: cast_nullable_to_non_nullable
-as String,sunlightEnv: null == sunlightEnv ? _self.sunlightEnv : sunlightEnv // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,water: null == water ? _self.water : water // ignore: cast_nullable_to_non_nullable
+as String,sunlight: null == sunlight ? _self.sunlight : sunlight // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }
@@ -154,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String waterEnv,  String sunlightEnv)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String water,  String sunlight)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SimulationRequestModel() when $default != null:
-return $default(_that.waterEnv,_that.sunlightEnv);case _:
+return $default(_that.id,_that.water,_that.sunlight);case _:
   return orElse();
 
 }
@@ -175,10 +176,10 @@ return $default(_that.waterEnv,_that.sunlightEnv);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String waterEnv,  String sunlightEnv)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String water,  String sunlight)  $default,) {final _that = this;
 switch (_that) {
 case _SimulationRequestModel():
-return $default(_that.waterEnv,_that.sunlightEnv);case _:
+return $default(_that.id,_that.water,_that.sunlight);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +196,10 @@ return $default(_that.waterEnv,_that.sunlightEnv);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String waterEnv,  String sunlightEnv)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String water,  String sunlight)?  $default,) {final _that = this;
 switch (_that) {
 case _SimulationRequestModel() when $default != null:
-return $default(_that.waterEnv,_that.sunlightEnv);case _:
+return $default(_that.id,_that.water,_that.sunlight);case _:
   return null;
 
 }
@@ -210,11 +211,12 @@ return $default(_that.waterEnv,_that.sunlightEnv);case _:
 @JsonSerializable()
 
 class _SimulationRequestModel implements SimulationRequestModel {
-  const _SimulationRequestModel({required this.waterEnv, required this.sunlightEnv});
+  const _SimulationRequestModel({required this.id, required this.water, required this.sunlight});
   factory _SimulationRequestModel.fromJson(Map<String, dynamic> json) => _$SimulationRequestModelFromJson(json);
 
-@override final  String waterEnv;
-@override final  String sunlightEnv;
+@override final  String id;
+@override final  String water;
+@override final  String sunlight;
 
 /// Create a copy of SimulationRequestModel
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SimulationRequestModel&&(identical(other.waterEnv, waterEnv) || other.waterEnv == waterEnv)&&(identical(other.sunlightEnv, sunlightEnv) || other.sunlightEnv == sunlightEnv));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SimulationRequestModel&&(identical(other.id, id) || other.id == id)&&(identical(other.water, water) || other.water == water)&&(identical(other.sunlight, sunlight) || other.sunlight == sunlight));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,waterEnv,sunlightEnv);
+int get hashCode => Object.hash(runtimeType,id,water,sunlight);
 
 @override
 String toString() {
-  return 'SimulationRequestModel(waterEnv: $waterEnv, sunlightEnv: $sunlightEnv)';
+  return 'SimulationRequestModel(id: $id, water: $water, sunlight: $sunlight)';
 }
 
 
@@ -249,7 +251,7 @@ abstract mixin class _$SimulationRequestModelCopyWith<$Res> implements $Simulati
   factory _$SimulationRequestModelCopyWith(_SimulationRequestModel value, $Res Function(_SimulationRequestModel) _then) = __$SimulationRequestModelCopyWithImpl;
 @override @useResult
 $Res call({
- String waterEnv, String sunlightEnv
+ String id, String water, String sunlight
 });
 
 
@@ -266,10 +268,11 @@ class __$SimulationRequestModelCopyWithImpl<$Res>
 
 /// Create a copy of SimulationRequestModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? waterEnv = null,Object? sunlightEnv = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? water = null,Object? sunlight = null,}) {
   return _then(_SimulationRequestModel(
-waterEnv: null == waterEnv ? _self.waterEnv : waterEnv // ignore: cast_nullable_to_non_nullable
-as String,sunlightEnv: null == sunlightEnv ? _self.sunlightEnv : sunlightEnv // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,water: null == water ? _self.water : water // ignore: cast_nullable_to_non_nullable
+as String,sunlight: null == sunlight ? _self.sunlight : sunlight // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

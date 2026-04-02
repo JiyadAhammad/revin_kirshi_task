@@ -6,8 +6,9 @@ part 'simulation_request.g.dart';
 @freezed
 abstract class SimulationRequestModel with _$SimulationRequestModel {
   const factory SimulationRequestModel({
-    required String waterEnv,
-    required String sunlightEnv,
+    required String id,
+    required String water,
+    required String sunlight,
   }) = _SimulationRequestModel;
 
   factory SimulationRequestModel.fromJson(Map<String, dynamic> json) =>

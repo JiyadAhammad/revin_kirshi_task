@@ -14,62 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SimulateEvent {
 
- String get waterEnv; String get sunlightEnv;
-/// Create a copy of SimulateEvent
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$SimulateEventCopyWith<SimulateEvent> get copyWith => _$SimulateEventCopyWithImpl<SimulateEvent>(this as SimulateEvent, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SimulateEvent&&(identical(other.waterEnv, waterEnv) || other.waterEnv == waterEnv)&&(identical(other.sunlightEnv, sunlightEnv) || other.sunlightEnv == sunlightEnv));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SimulateEvent);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,waterEnv,sunlightEnv);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SimulateEvent(waterEnv: $waterEnv, sunlightEnv: $sunlightEnv)';
+  return 'SimulateEvent()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $SimulateEventCopyWith<$Res>  {
-  factory $SimulateEventCopyWith(SimulateEvent value, $Res Function(SimulateEvent) _then) = _$SimulateEventCopyWithImpl;
-@useResult
-$Res call({
- String waterEnv, String sunlightEnv
-});
-
-
-
-
-}
-/// @nodoc
-class _$SimulateEventCopyWithImpl<$Res>
-    implements $SimulateEventCopyWith<$Res> {
-  _$SimulateEventCopyWithImpl(this._self, this._then);
-
-  final SimulateEvent _self;
-  final $Res Function(SimulateEvent) _then;
-
-/// Create a copy of SimulateEvent
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? waterEnv = null,Object? sunlightEnv = null,}) {
-  return _then(_self.copyWith(
-waterEnv: null == waterEnv ? _self.waterEnv : waterEnv // ignore: cast_nullable_to_non_nullable
-as String,sunlightEnv: null == sunlightEnv ? _self.sunlightEnv : sunlightEnv // ignore: cast_nullable_to_non_nullable
-as String,
-  ));
-}
-
+class $SimulateEventCopyWith<$Res>  {
+$SimulateEventCopyWith(SimulateEvent _, $Res Function(SimulateEvent) __);
 }
 
 
@@ -87,11 +55,14 @@ extension SimulateEventPatterns on SimulateEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _NewResult value)?  newResult,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _ResetResult value)?  resetResult,TResult Function( _NewResult value)?  newResult,TResult Function( _WaterEnvSelect value)?  onWaterEnvSelect,TResult Function( _SunLightEnvSelect value)?  onSunLightEnvSelect,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _NewResult() when newResult != null:
-return newResult(_that);case _:
+case _ResetResult() when resetResult != null:
+return resetResult(_that);case _NewResult() when newResult != null:
+return newResult(_that);case _WaterEnvSelect() when onWaterEnvSelect != null:
+return onWaterEnvSelect(_that);case _SunLightEnvSelect() when onSunLightEnvSelect != null:
+return onSunLightEnvSelect(_that);case _:
   return orElse();
 
 }
@@ -109,11 +80,14 @@ return newResult(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _NewResult value)  newResult,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _ResetResult value)  resetResult,required TResult Function( _NewResult value)  newResult,required TResult Function( _WaterEnvSelect value)  onWaterEnvSelect,required TResult Function( _SunLightEnvSelect value)  onSunLightEnvSelect,}){
 final _that = this;
 switch (_that) {
-case _NewResult():
-return newResult(_that);case _:
+case _ResetResult():
+return resetResult(_that);case _NewResult():
+return newResult(_that);case _WaterEnvSelect():
+return onWaterEnvSelect(_that);case _SunLightEnvSelect():
+return onSunLightEnvSelect(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -130,11 +104,14 @@ return newResult(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _NewResult value)?  newResult,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _ResetResult value)?  resetResult,TResult? Function( _NewResult value)?  newResult,TResult? Function( _WaterEnvSelect value)?  onWaterEnvSelect,TResult? Function( _SunLightEnvSelect value)?  onSunLightEnvSelect,}){
 final _that = this;
 switch (_that) {
-case _NewResult() when newResult != null:
-return newResult(_that);case _:
+case _ResetResult() when resetResult != null:
+return resetResult(_that);case _NewResult() when newResult != null:
+return newResult(_that);case _WaterEnvSelect() when onWaterEnvSelect != null:
+return onWaterEnvSelect(_that);case _SunLightEnvSelect() when onSunLightEnvSelect != null:
+return onSunLightEnvSelect(_that);case _:
   return null;
 
 }
@@ -151,10 +128,13 @@ return newResult(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String waterEnv,  String sunlightEnv)?  newResult,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  resetResult,TResult Function( String simId,  String waterEnv,  String sunlightEnv)?  newResult,TResult Function( String waterEnv)?  onWaterEnvSelect,TResult Function( String sunlightEnv)?  onSunLightEnvSelect,required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _NewResult() when newResult != null:
-return newResult(_that.waterEnv,_that.sunlightEnv);case _:
+case _ResetResult() when resetResult != null:
+return resetResult();case _NewResult() when newResult != null:
+return newResult(_that.simId,_that.waterEnv,_that.sunlightEnv);case _WaterEnvSelect() when onWaterEnvSelect != null:
+return onWaterEnvSelect(_that.waterEnv);case _SunLightEnvSelect() when onSunLightEnvSelect != null:
+return onSunLightEnvSelect(_that.sunlightEnv);case _:
   return orElse();
 
 }
@@ -172,10 +152,13 @@ return newResult(_that.waterEnv,_that.sunlightEnv);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String waterEnv,  String sunlightEnv)  newResult,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  resetResult,required TResult Function( String simId,  String waterEnv,  String sunlightEnv)  newResult,required TResult Function( String waterEnv)  onWaterEnvSelect,required TResult Function( String sunlightEnv)  onSunLightEnvSelect,}) {final _that = this;
 switch (_that) {
-case _NewResult():
-return newResult(_that.waterEnv,_that.sunlightEnv);case _:
+case _ResetResult():
+return resetResult();case _NewResult():
+return newResult(_that.simId,_that.waterEnv,_that.sunlightEnv);case _WaterEnvSelect():
+return onWaterEnvSelect(_that.waterEnv);case _SunLightEnvSelect():
+return onSunLightEnvSelect(_that.sunlightEnv);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +175,13 @@ return newResult(_that.waterEnv,_that.sunlightEnv);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String waterEnv,  String sunlightEnv)?  newResult,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  resetResult,TResult? Function( String simId,  String waterEnv,  String sunlightEnv)?  newResult,TResult? Function( String waterEnv)?  onWaterEnvSelect,TResult? Function( String sunlightEnv)?  onSunLightEnvSelect,}) {final _that = this;
 switch (_that) {
-case _NewResult() when newResult != null:
-return newResult(_that.waterEnv,_that.sunlightEnv);case _:
+case _ResetResult() when resetResult != null:
+return resetResult();case _NewResult() when newResult != null:
+return newResult(_that.simId,_that.waterEnv,_that.sunlightEnv);case _WaterEnvSelect() when onWaterEnvSelect != null:
+return onWaterEnvSelect(_that.waterEnv);case _SunLightEnvSelect() when onSunLightEnvSelect != null:
+return onSunLightEnvSelect(_that.sunlightEnv);case _:
   return null;
 
 }
@@ -206,16 +192,49 @@ return newResult(_that.waterEnv,_that.sunlightEnv);case _:
 /// @nodoc
 
 
-class _NewResult implements SimulateEvent {
-  const _NewResult({required this.waterEnv, required this.sunlightEnv});
+class _ResetResult implements SimulateEvent {
+  const _ResetResult();
   
 
-@override final  String waterEnv;
-@override final  String sunlightEnv;
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ResetResult);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SimulateEvent.resetResult()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class _NewResult implements SimulateEvent {
+  const _NewResult({required this.simId, required this.waterEnv, required this.sunlightEnv});
+  
+
+ final  String simId;
+ final  String waterEnv;
+ final  String sunlightEnv;
 
 /// Create a copy of SimulateEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 _$NewResultCopyWith<_NewResult> get copyWith => __$NewResultCopyWithImpl<_NewResult>(this, _$identity);
 
@@ -223,16 +242,16 @@ _$NewResultCopyWith<_NewResult> get copyWith => __$NewResultCopyWithImpl<_NewRes
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewResult&&(identical(other.waterEnv, waterEnv) || other.waterEnv == waterEnv)&&(identical(other.sunlightEnv, sunlightEnv) || other.sunlightEnv == sunlightEnv));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NewResult&&(identical(other.simId, simId) || other.simId == simId)&&(identical(other.waterEnv, waterEnv) || other.waterEnv == waterEnv)&&(identical(other.sunlightEnv, sunlightEnv) || other.sunlightEnv == sunlightEnv));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,waterEnv,sunlightEnv);
+int get hashCode => Object.hash(runtimeType,simId,waterEnv,sunlightEnv);
 
 @override
 String toString() {
-  return 'SimulateEvent.newResult(waterEnv: $waterEnv, sunlightEnv: $sunlightEnv)';
+  return 'SimulateEvent.newResult(simId: $simId, waterEnv: $waterEnv, sunlightEnv: $sunlightEnv)';
 }
 
 
@@ -241,9 +260,9 @@ String toString() {
 /// @nodoc
 abstract mixin class _$NewResultCopyWith<$Res> implements $SimulateEventCopyWith<$Res> {
   factory _$NewResultCopyWith(_NewResult value, $Res Function(_NewResult) _then) = __$NewResultCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
- String waterEnv, String sunlightEnv
+ String simId, String waterEnv, String sunlightEnv
 });
 
 
@@ -260,10 +279,143 @@ class __$NewResultCopyWithImpl<$Res>
 
 /// Create a copy of SimulateEvent
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? waterEnv = null,Object? sunlightEnv = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? simId = null,Object? waterEnv = null,Object? sunlightEnv = null,}) {
   return _then(_NewResult(
-waterEnv: null == waterEnv ? _self.waterEnv : waterEnv // ignore: cast_nullable_to_non_nullable
+simId: null == simId ? _self.simId : simId // ignore: cast_nullable_to_non_nullable
+as String,waterEnv: null == waterEnv ? _self.waterEnv : waterEnv // ignore: cast_nullable_to_non_nullable
 as String,sunlightEnv: null == sunlightEnv ? _self.sunlightEnv : sunlightEnv // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _WaterEnvSelect implements SimulateEvent {
+  const _WaterEnvSelect({required this.waterEnv});
+  
+
+ final  String waterEnv;
+
+/// Create a copy of SimulateEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WaterEnvSelectCopyWith<_WaterEnvSelect> get copyWith => __$WaterEnvSelectCopyWithImpl<_WaterEnvSelect>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WaterEnvSelect&&(identical(other.waterEnv, waterEnv) || other.waterEnv == waterEnv));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,waterEnv);
+
+@override
+String toString() {
+  return 'SimulateEvent.onWaterEnvSelect(waterEnv: $waterEnv)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WaterEnvSelectCopyWith<$Res> implements $SimulateEventCopyWith<$Res> {
+  factory _$WaterEnvSelectCopyWith(_WaterEnvSelect value, $Res Function(_WaterEnvSelect) _then) = __$WaterEnvSelectCopyWithImpl;
+@useResult
+$Res call({
+ String waterEnv
+});
+
+
+
+
+}
+/// @nodoc
+class __$WaterEnvSelectCopyWithImpl<$Res>
+    implements _$WaterEnvSelectCopyWith<$Res> {
+  __$WaterEnvSelectCopyWithImpl(this._self, this._then);
+
+  final _WaterEnvSelect _self;
+  final $Res Function(_WaterEnvSelect) _then;
+
+/// Create a copy of SimulateEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? waterEnv = null,}) {
+  return _then(_WaterEnvSelect(
+waterEnv: null == waterEnv ? _self.waterEnv : waterEnv // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class _SunLightEnvSelect implements SimulateEvent {
+  const _SunLightEnvSelect({required this.sunlightEnv});
+  
+
+ final  String sunlightEnv;
+
+/// Create a copy of SimulateEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SunLightEnvSelectCopyWith<_SunLightEnvSelect> get copyWith => __$SunLightEnvSelectCopyWithImpl<_SunLightEnvSelect>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SunLightEnvSelect&&(identical(other.sunlightEnv, sunlightEnv) || other.sunlightEnv == sunlightEnv));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,sunlightEnv);
+
+@override
+String toString() {
+  return 'SimulateEvent.onSunLightEnvSelect(sunlightEnv: $sunlightEnv)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SunLightEnvSelectCopyWith<$Res> implements $SimulateEventCopyWith<$Res> {
+  factory _$SunLightEnvSelectCopyWith(_SunLightEnvSelect value, $Res Function(_SunLightEnvSelect) _then) = __$SunLightEnvSelectCopyWithImpl;
+@useResult
+$Res call({
+ String sunlightEnv
+});
+
+
+
+
+}
+/// @nodoc
+class __$SunLightEnvSelectCopyWithImpl<$Res>
+    implements _$SunLightEnvSelectCopyWith<$Res> {
+  __$SunLightEnvSelectCopyWithImpl(this._self, this._then);
+
+  final _SunLightEnvSelect _self;
+  final $Res Function(_SunLightEnvSelect) _then;
+
+/// Create a copy of SimulateEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? sunlightEnv = null,}) {
+  return _then(_SunLightEnvSelect(
+sunlightEnv: null == sunlightEnv ? _self.sunlightEnv : sunlightEnv // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

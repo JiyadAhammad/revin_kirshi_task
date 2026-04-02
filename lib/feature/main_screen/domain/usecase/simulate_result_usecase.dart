@@ -14,8 +14,13 @@ class SimulateResultUseCase {
 }
 
 class SimulateResultParam {
+  final String simId;
   final String waterEnv;
   final String sunlightEnv;
 
-  SimulateResultParam({required this.waterEnv, required this.sunlightEnv});
+  SimulateResultParam({
+    required this.waterEnv,
+    required this.sunlightEnv,
+    required this.simId,
+  });
 }

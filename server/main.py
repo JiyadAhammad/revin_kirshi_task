@@ -4,7 +4,13 @@ import uuid
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 
-from model import RequestModel, ResponseModel, SunlightLevel, WaterLevel
+from model import (
+    RequestModel,
+    ResponseModel,
+    SuccessResponse,
+    SunlightLevel,
+    WaterLevel,
+)
 
 app = FastAPI()
 
@@ -26,7 +32,7 @@ def test_endpoint():
 simulations: Dict[str, ResponseModel] = {}
 
 
-@app.post("/api/simulations", response_model=ResponseModel)
+@app.post("/api/simulations", response_model=SuccessResponse[ResponseModel])
 def create_simulation():
     try:
         sim_id = str(uuid.uuid4())
@@ -40,7 +46,7 @@ def create_simulation():
             status_msg="Simulation started. Seed planted.",
         )
         simulations[sim_id] = state
-        return state
+        return SuccessResponse(message="New Simulation started", data=state)
 
     except Exception as e:
         raise HTTPException(
@@ -49,7 +55,9 @@ def create_simulation():
         )
 
 
-@app.post("/api/simulations/{sim_id}/step", response_model=ResponseModel)
+@app.post(
+    "/api/simulations/{sim_id}/step", response_model=SuccessResponse[ResponseModel]
+)
 def step_simulation(sim_id: str, step_in: RequestModel):
     try:
         state = simulations.get(sim_id)
@@ -121,7 +129,7 @@ def step_simulation(sim_id: str, step_in: RequestModel):
         state.status_msg = msg
 
         simulations[sim_id] = state
-        return state
+        return SuccessResponse(message="New Simulated Result", data=state)
 
     except HTTPException:
         raise

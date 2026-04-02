@@ -9,13 +9,15 @@ part of 'simulation_request.dart';
 _SimulationRequestModel _$SimulationRequestModelFromJson(
   Map<String, dynamic> json,
 ) => _SimulationRequestModel(
-  waterEnv: json['waterEnv'] as String,
-  sunlightEnv: json['sunlightEnv'] as String,
+  id: json['id'] as String,
+  water: json['water'] as String,
+  sunlight: json['sunlight'] as String,
 );
 
 Map<String, dynamic> _$SimulationRequestModelToJson(
   _SimulationRequestModel instance,
 ) => <String, dynamic>{
-  'waterEnv': instance.waterEnv,
-  'sunlightEnv': instance.sunlightEnv,
+  'id': instance.id,
+  'water': instance.water,
+  'sunlight': instance.sunlight,
 };

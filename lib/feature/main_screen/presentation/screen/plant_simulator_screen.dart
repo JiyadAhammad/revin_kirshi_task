@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:revin_krish_task/feature/main_screen/presentation/bloc/simulate_bloc.dart';
 
-import '../../data/model/plant_history.dart';
+import '../bloc/simulate_bloc.dart';
 import '../widget/glass_panel.dart';
 import '../widget/progress_bar.dart';
 import '../widget/toggle_group.dart';
@@ -15,100 +14,17 @@ class PlantSimulatorScreen extends StatefulWidget {
 }
 
 class PlantSimulatorScreenState extends State<PlantSimulatorScreen> {
-  int day = 0;
-  int health = 100;
-  int growth = 0;
-  String water = 'Medium';
-  String sunlight = 'Medium';
-  String statusMsg = 'Seed planted.';
-  List<PlantHistory> history = [];
-
-  void _handleNextDay() {
-    if (health <= 0 || growth >= 100) return;
-
-    int healthDelta = 0;
-    int growthDelta = 0;
-    String msg = '';
-
-    // Rules Engine logic
-    if (water == 'Low' && sunlight == 'High') {
-      healthDelta = -20;
-      growthDelta = 2;
-      msg = 'Plant is drying out! Extreme stress.';
-    } else if (water == 'Medium' && sunlight == 'Medium') {
-      healthDelta = 10;
-      growthDelta = 15;
-      msg = 'Optimal conditions! Healthy growth.';
-    } else if (water == 'High' && sunlight == 'Low') {
-      healthDelta = -20;
-      growthDelta = 0;
-      msg = 'Soil is waterlogged. Risk of root rot.';
-    } else if (water == 'Low' && sunlight == 'Low') {
-      healthDelta = -10;
-      growthDelta = 2;
-      msg = 'Lacking resources. Stunted growth.';
-    } else if (water == 'High' && sunlight == 'High') {
-      healthDelta = -10;
-      growthDelta = 10;
-      msg = 'Hot and humid! Fast growth but stressful.';
-    } else if (water == 'High' && sunlight == 'Medium') {
-      healthDelta = -5;
-      growthDelta = 8;
-      msg = 'A bit too much water.';
-    } else if (water == 'Medium' && sunlight == 'High') {
-      healthDelta = -5;
-      growthDelta = 12;
-      msg = 'Very sunny, could use a bit more water.';
-    } else if (water == 'Medium' && sunlight == 'Low') {
-      healthDelta = -5;
-      growthDelta = 5;
-      msg = 'Not enough sun today.';
-    } else if (water == 'Low' && sunlight == 'Medium') {
-      healthDelta = -10;
-      growthDelta = 4;
-      msg = 'Plant needs water urgently.';
-    }
-
-    setState(() {
-      health = (health + healthDelta).clamp(0, 100);
-      growth = (growth + growthDelta).clamp(0, 100);
-      day++;
-
-      if (health <= 0) {
-        statusMsg = 'Plant has died. 🥀';
-      } else if (growth >= 100) {
-        statusMsg = 'Plant is fully grown! 🌳';
-      } else {
-        statusMsg = msg;
-      }
-
-      history.insert(
-        0,
-        PlantHistory(
-          day: day,
-          water: water,
-          sunlight: sunlight,
-          health: health,
-          growth: growth,
-          msg: statusMsg,
-        ),
-      );
-    });
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) => _resetSim());
   }
 
   void _resetSim() {
-    setState(() {
-      day = 0;
-      health = 100;
-      growth = 0;
-      water = 'Medium';
-      sunlight = 'Medium';
-      history = [];
-      statusMsg = 'Simulation reset. Seed planted.';
-    });
+    context.read<SimulateBloc>().add(SimulateEvent.resetResult());
   }
 
-  String _getPlantEmoji() {
+  String _getPlantEmoji(int health, int growth) {
     if (health <= 0) return '🥀';
     if (growth >= 100) return '🌳';
     if (growth >= 70) return '🪴';
@@ -116,7 +32,7 @@ class PlantSimulatorScreenState extends State<PlantSimulatorScreen> {
     return '🌱';
   }
 
-  Color _getSkyColor() {
+  Color _getSkyColor(String sunlight) {
     if (sunlight == 'Low') return Colors.blueGrey.shade300;
     if (sunlight == 'High') return Colors.orangeAccent.shade100;
     return Colors.lightBlue.shade200;
@@ -125,57 +41,80 @@ class PlantSimulatorScreenState extends State<PlantSimulatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnimatedContainer(
-        duration: Duration(seconds: 1),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [_getSkyColor(), Colors.white],
-          ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                _BuildHeader(
-                  day: day,
-                  health: health,
-                  growth: growth,
-                  onPressReset: _resetSim,
+      body: BlocConsumer<SimulateBloc, SimulateState>(
+        listener: (context, state) {
+          if (state.isError) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.errorMessage ?? '')));
+          }
+        },
+        builder: (context, state) {
+          if (state.simulatedResult != null) {
+            final item = state.simulatedResult!;
+            return AnimatedContainer(
+              duration: Duration(seconds: 1),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [_getSkyColor(item.sunlight), Colors.white],
                 ),
-                Expanded(
-                  child: _BuildPlantView(
-                    growth: growth,
-                    getPlantEmoji: _getPlantEmoji(),
-                    statusMsg: statusMsg,
+              ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      _BuildHeader(
+                        day: item.day,
+                        health: item.health,
+                        growth: item.growth,
+                        onPressReset: _resetSim,
+                      ),
+                      Expanded(
+                        child: _BuildPlantView(
+                          growth: item.growth,
+                          getPlantEmoji: _getPlantEmoji(
+                            item.health,
+                            item.growth,
+                          ),
+                          statusMsg: item.statusMsg,
+                        ),
+                      ),
+                      _BuildControls(
+                        health: item.health,
+                        growth: item.growth,
+                        selectedWaterEnv: item.water,
+                        selectedSunlightEnv: item.sunlight,
+                        onWaterEnvSelect: (String val) {
+                          context.read<SimulateBloc>().add(
+                            SimulateEvent.onWaterEnvSelect(waterEnv: val),
+                          );
+                        },
+                        onSunLightEnvSelect: (String val) {
+                          context.read<SimulateBloc>().add(
+                            SimulateEvent.onSunLightEnvSelect(sunlightEnv: val),
+                          );
+                        },
+                        onTapSimulate: () {
+                          context.read<SimulateBloc>().add(
+                            SimulateEvent.newResult(
+                              simId: item.id,
+                              waterEnv: item.water,
+                              sunlightEnv: item.sunlight,
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                _BuildControls(
-                  health: health,
-                  growth: growth,
-                  selectedWaterEnv: water,
-                  selectedSunlightEnv: sunlight,
-                  onWaterEnvSelect: (String val) {
-                    setState(() => water = val);
-                  },
-                  onSunLightEnvSelect: (String val) {
-                    setState(() => sunlight = val);
-                  },
-                  onTapSimulate: () {
-                    context.read<SimulateBloc>().add(
-                      SimulateEvent.newResult(
-                        waterEnv: water,
-                        sunlightEnv: sunlight,
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+              ),
+            );
+          }
+          return Center(child: CircularProgressIndicator.adaptive());
+        },
       ),
     );
   }
@@ -291,13 +230,13 @@ class _BuildControls extends StatelessWidget {
             label: '💧 Water',
             current: selectedWaterEnv,
             options: ['Low', 'Medium', 'High'],
-            onChanged: isOver ? null : (val) => onWaterEnvSelect,
+            onChanged: isOver ? null : (val) => onWaterEnvSelect(val),
           ),
           ToggleGroup(
             label: '☀️ Sunlight',
             current: selectedSunlightEnv,
             options: ['Low', 'Medium', 'High'],
-            onChanged: isOver ? null : (val) => onSunLightEnvSelect,
+            onChanged: isOver ? null : (val) => onSunLightEnvSelect(val),
           ),
           SizedBox(height: 10),
           SizedBox(

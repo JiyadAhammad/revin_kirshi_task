@@ -8,4 +8,5 @@ abstract interface class ISimulateResultRepository {
   Future<Either<Failure, SimulateResult>> simulateTodayResult({
     required SimulateResultParam request,
   });
+  Future<Either<Failure, SimulateResult>> resetResult();
 }
