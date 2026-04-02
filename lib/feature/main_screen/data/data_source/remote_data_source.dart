@@ -13,9 +13,9 @@ abstract interface class ISimulateResultDataSource {
   });
 }
 
-class SimulateResultRepositoryImpl extends BaseRemoteDataSourceImpl
+class SimulateResultDataSourceImpl extends BaseRemoteDataSourceImpl
     implements ISimulateResultDataSource {
-  SimulateResultRepositoryImpl(this.dio);
+  SimulateResultDataSourceImpl(this.dio);
   final Dio dio;
   // { water: 'HIGH', sunlight: 'LOW' }
   @override
@@ -24,7 +24,7 @@ class SimulateResultRepositoryImpl extends BaseRemoteDataSourceImpl
   }) {
     return safeApiCall(() async {
       final Response<dynamic> res = await dio.post(
-        ApiEndpoint.simulateTodayResult,
+        ApiEndpoint.simulateResult,
         data: request.toJson(),
       );
 

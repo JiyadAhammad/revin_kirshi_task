@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:revin_krish_task/feature/main_screen/presentation/bloc/simulate_bloc.dart';
 
 import '../../data/model/plant_history.dart';
 import '../widget/glass_panel.dart';
@@ -161,7 +163,14 @@ class PlantSimulatorScreenState extends State<PlantSimulatorScreen> {
                   onSunLightEnvSelect: (String val) {
                     setState(() => sunlight = val);
                   },
-                  onTapSimulate: _handleNextDay,
+                  onTapSimulate: () {
+                    context.read<SimulateBloc>().add(
+                      SimulateEvent.newResult(
+                        waterEnv: water,
+                        sunlightEnv: sunlight,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

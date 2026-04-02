@@ -1,7 +1,21 @@
 class SimulateResultEntity {
-  final String result;
+  final String id;
+  final int day;
+  final int health;
+  final int growth;
+  final String water;
+  final String sunlight;
+  final String statusMsg;
 
-  SimulateResultEntity({required this.result});
+  SimulateResultEntity({
+    required this.id,
+    required this.day,
+    required this.health,
+    required this.growth,
+    required this.water,
+    required this.sunlight,
+    required this.statusMsg,
+  });
 }
 
 class SimulateResult {
