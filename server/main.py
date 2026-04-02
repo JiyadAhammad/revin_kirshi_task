@@ -2,15 +2,24 @@ from typing import Dict
 import uuid
 
 from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 
 from model import RequestModel, ResponseModel, SunlightLevel, WaterLevel
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all for local dev
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
-def read_root():
-    return {"message": "Hello FastAPI 🚀"}
+def test_endpoint():
+    return {"message": "Hello FastAPI Testing"}
 
 
 #  Manage data using db variable without database
